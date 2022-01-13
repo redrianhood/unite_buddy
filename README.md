@@ -1,2 +1,3 @@
 # unite_buddy
-A pokédex for Pokémon Unite
+A helper for Pokémon Unite data
+:]
