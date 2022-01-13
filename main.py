@@ -6,52 +6,45 @@ Pokemon Unite data buddy
 # import statements
 import pandas as pd
 # local imports
-from welcome import welcome
-
-# constants
-DATA_PATH = "unite_data.xlsx"
+from bookends import welcome, goodbye
+from options import main_menu, pkmn_by_type, pkmn_by_stat
 
 
-def main_menu():
-    print("\n          Main Menu\n"
-          "============options===========\n"
-          "-Main menu: 'M'\n"
-          "-Pokemon by Type: 'T'\n"
-          "-Pokemon by Top Stat: 'S'\n")
+def menu_logic():
+    # respond to user input
+    while True:
+        menu_choice = input(">>> ").lower()  # take input and convert to lowercase
 
-    menu_choice = input(">>> ")
-
-    # response logic to user input
-    if menu_choice.lower() == 'm':
-        main_menu()
-    elif menu_choice.lower() == 't':
-        # implement pokemon by type search
-        # pkmn_by_type()
-        main_menu()
-    elif menu_choice.lower() == 's':
-        # implement pokemon by top stat
-        # pkmn_by_stat()
-        main_menu()
-    else:
-        print("invalid input")
+        # return to the main menu
+        if menu_choice == 'm':
+            main_menu()
+        # display pokemon table by the type it is
+        elif menu_choice == 't':
+            what_type = input("\nWhat type of pokemon do you want to look for? \n"
+                              "options: 'Attacker', 'Defender', 'Speedster', 'All-Rounder', 'Support'\n"
+                              ">>>").casefold().capitalize()
+            pkmn_by_type(what_type)
+        # display pokemon table by top stats
+        elif menu_choice == 's':
+            what_stat = input("Which stat would you like to sort by?\n>>>").casefold().capitalize()
+            pkmn_by_stat(what_stat)
+        elif menu_choice == 'h':
+            print("help menu in development")
+        # quit the program
+        elif menu_choice == 'q' or menu_choice == 'quit':
+            goodbye()
+            break
+        # account for invalid menu selection
+        else:
+            print("Invalid input, please try again\n"
+                  "Type 'M' for menu or 'H' for help:\n")
 
 
 def main():
-    # be able to read data from .xlsx document and print to console screen
-    pokemon_frame = pd.read_excel(DATA_PATH, sheet_name="Pokemon")
-
-    # ###### BELOW is for reference
-    # print(pokemon_frame)
-    # print(pokemon_frame.shape)
-    # sorted_pokemon = pokemon_frame.sort_values(["Offense"], ascending=False)
-    # print(sorted_pokemon)
-
-    # display welcome banner and message
-    welcome()
+    """ runtime """
+    welcome()  # display welcome banner and message
     main_menu()
-
-    # menu
-    # 'help' : list available commands
+    menu_logic()
 
 
 if __name__ == "__main__":
