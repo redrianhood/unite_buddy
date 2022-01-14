@@ -7,7 +7,7 @@ Pokemon Unite data buddy
 import pandas as pd
 # local imports
 from bookends import welcome, goodbye
-from options import main_menu, pkmn_by_type, pkmn_by_stat
+from options import main_menu, pkmn_by_type, pkmn_by_stat, pkmn_by_name
 
 
 def menu_logic():
@@ -16,27 +16,25 @@ def menu_logic():
         menu_choice = input(">>> ").lower()  # take input and convert to lowercase
 
         # return to the main menu
-        if menu_choice == 'm':
+        if menu_choice == 'm' or menu_choice == 'menu':
             main_menu()
         # display pokemon table by the type it is
-        elif menu_choice == 't':
-            what_type = input("\nWhat type of pokemon do you want to look for? \n"
-                              "options: 'Attacker', 'Defender', 'Speedster', 'All-Rounder', 'Support'\n"
-                              ">>>").casefold().capitalize()
-            pkmn_by_type(what_type)
+        elif menu_choice == 't' or menu_choice == 'type':
+            pkmn_by_type()
         # display pokemon table by top stats
-        elif menu_choice == 's':
-            what_stat = input("Which stat would you like to sort by?\n>>>").casefold().capitalize()
-            pkmn_by_stat(what_stat)
-        elif menu_choice == 'h':
+        elif menu_choice == 's' or menu_choice == 'stat':
+            pkmn_by_stat()
+        # display an individual pokemon's data
+        elif menu_choice == 'n' or menu_choice == 'name':
+            pkmn_by_name()
+        elif menu_choice == 'h' or menu_choice == 'help':
             print("help menu in development")
-        # quit the program
         elif menu_choice == 'q' or menu_choice == 'quit':
             goodbye()
             break
         # account for invalid menu selection
         else:
-            print("Invalid input, please try again\n"
+            print("\nInvalid input, please try again\n"
                   "Type 'M' for menu or 'H' for help:\n")
 
 
