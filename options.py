@@ -81,5 +81,29 @@ def pkmn_by_stat():
             print("\n*** invalid input, try again ***\n")
 
 
+def pkmn_by_name():
+    """
+    nicely print details of individual pokemon
+    :return:
+    """
+    # description
+    print("""
+    Which pokemon would you like to see information about?
+    options: all currently playable pokemon""")
 
-# def pkmn_by_name(selection):
+    name_selection = input("name >>>").casefold().capitalize()
+
+    try:  # try to find index of selected pokemon
+        index_value = int(pkmn_df.loc[pkmn_df['Name'] == name_selection].index[0])
+        headers = pkmn_df.columns.values  # column names
+        # print each value next to it's description
+        print('\n')
+        for title in headers:
+            item = pkmn_df.at[index_value, title]
+            print(f"{title}:   {item}")
+        print('\n')
+    except IndexError:  # if pokemon selection in invalid
+        print("\n\n*** Invalid selection ***\n\n"
+              "That pokemon is not in Pokemon Unite yet.\n"
+              "(returned to the main menu)\n\n"
+              "Main Menu")
